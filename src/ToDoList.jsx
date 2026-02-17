@@ -1,4 +1,5 @@
 import Task from "./Task";
+import { memo } from "react";
 
 const ToDoList = ({tasks}) => {
     console.log('rerender ToDoList')
@@ -8,4 +9,4 @@ return <div className="tasks">
 </div>
 }
 
-export default ToDoList
+export default memo(ToDoList)

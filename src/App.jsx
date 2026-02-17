@@ -39,7 +39,7 @@ function App() {
   }, []);
 
   const filteredTask = useMemo(() => {
-    tasks.filter((item) => {
+   return tasks.filter((item) => {
       if (filter === "active") return !item.isDone;
       if (filter === "done") return item.isDone;
       return true;
@@ -48,7 +48,7 @@ function App() {
 
   const taskLength = useMemo(
     () => filteredTask.filter((item) => !item.isDone).length,
-    [filteredTask],
+    [filteredTask]
   );
 
   const clearActive = useCallback(() => {
