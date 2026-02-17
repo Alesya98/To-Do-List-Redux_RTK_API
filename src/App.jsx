@@ -38,21 +38,26 @@ function App() {
     );
   }, []);
 
-  const filteredTask = tasks.filter((item) => {
-    if (filter === "active") return !item.isDone;
-    if (filter === "done") return item.isDone;
-    return true;
-  });
+  const filteredTask = useMemo(() => {
+    tasks.filter((item) => {
+      if (filter === "active") return !item.isDone;
+      if (filter === "done") return item.isDone;
+      return true;
+    });
+  }, [filter, tasks]);
 
-  const taskLength = useMemo(() => filteredTask.filter((item) => !item.isDone).length, [filteredTask]);
+  const taskLength = useMemo(
+    () => filteredTask.filter((item) => !item.isDone).length,
+    [filteredTask],
+  );
 
   const clearActive = useCallback(() => {
     setTask((tasks) => tasks.filter((item) => !item.isDone));
   }, []);
 
   const valueContext = useMemo(() => {
-    return {deleteTask, checkedTask, editTitle}
-  }, [deleteTask, checkedTask, editTitle])
+    return { deleteTask, checkedTask, editTitle };
+  }, [deleteTask, checkedTask, editTitle]);
 
   return (
     <>
