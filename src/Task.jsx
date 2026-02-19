@@ -2,13 +2,13 @@ import { useContext, useState, memo } from "react";
 import { DeleteTaskContext } from "./DeleteTaskContext";
 
 const Task = ({ task }) => {
-  console.log("rerender Task", task.title);
+  // console.log("rerender Task", task.title);
   const context = useContext(DeleteTaskContext);
   const [isEdit, setIsEdit] = useState(false);
   const [editText, setEditText] = useState(task.title);
 
   const hendelSend = (e) => {
-    console.log("кнопка нажата");
+    // console.log("кнопка нажата");
     if (e.key === "Enter") {
       if (editText.trim() === "") {
         setEditText(task.title);
@@ -25,8 +25,8 @@ const Task = ({ task }) => {
       <input
         className="task-check"
         type="checkbox"
-        checked={task.isDone}
-        onChange={() => context.checkedTask(task.id)}
+        checked={task.isCompleted}
+        onChange={() => context.checkedTask(task.id, task.isCompleted)}
       />
       {!isEdit ? (
         <p className={task.isDone ? "check" : ""}>{task.title}</p>
