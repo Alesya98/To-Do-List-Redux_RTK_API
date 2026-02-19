@@ -6,6 +6,7 @@ import ToDoList from "./ToDoList";
 import { DeleteTaskContext } from "./DeleteTaskContext";
 import ButtonComp from "./ButtonComp";
 import DeleteActiveTask from "./DeleteActiveTask";
+import { LogOut } from "./LogOut";
 
 const ToDo = () => {
   const [tasks, setTask] = useState([]);
@@ -145,6 +146,7 @@ const ToDo = () => {
       </DeleteTaskContext>
       <ButtonComp setFilter={setFilter} />
       <DeleteActiveTask taskLength={taskLength} clearActive={clearActive} />
+      <LogOut/>
     </>
   );
 };

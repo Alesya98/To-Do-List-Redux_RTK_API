@@ -4,7 +4,7 @@ const DeleteActiveTask = ({taskLength, clearActive}) => {
     // console.log('rerender DeleteActiveTask')
 return <div>
     <p>Осталось дел: {taskLength}</p>
-    <button className="search-btn" onClick={clearActive}>Оистить выполненые</button>
+    <button className="search-btn" style={{marginBottom: '10px'}} onClick={clearActive}>Оистить выполненые</button>
 </div>
 }
 
