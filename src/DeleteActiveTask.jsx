@@ -6,40 +6,40 @@ const DeleteActiveTask = () => {
   const { value } = useSelector((store) => store.tasks);
   const dispatch = useDispatch();
 
-  const taskLength = value.filter((item) => !item.isCompleted).length;
-
-
-  const clearActive = async(id) => {
+  const taskLength = value.filter((item) => !item.isCompleted);
+  const clearDone = value.filter((item) => item.isCompleted);
+  const clearActive = async () => {
     try {
-        const response = await fetch(`https://todo-redev.herokuapp.com/api/todos/${id}`, {
-             method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            accept: "application/json",
+      for (const task of clearDone) {
+        const response = await fetch(
+          `https://todo-redev.herokuapp.com/api/todos/${task.id}`,
+          {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              accept: "application/json",
+            },
           },
-        })
-
-        // const data = response.json()
-        // console.log(data)
-          if (response.ok) {
-               dispatch(clearActiveActions(id));
-              } else {
-                console.log("Ошибка");
-              }
+        );
+        if (response.ok) {
+          dispatch(clearActiveActions(task.id));
+        } else {
+          console.log("Ошибка");
+        }
+      }
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
-    
   };
   return (
     <div>
-      <p>Осталось дел: {taskLength} </p>
+      <p>Осталось дел: {taskLength.length} </p>
       <button
         className="search-btn"
         style={{ marginBottom: "10px" }}
-        onClick={() => clearActive()}
+        onClick={clearActive}
       >
-        Оистить выполненные
+        Оистить выполненные: {clearDone.length}
       </button>
     </div>
   );

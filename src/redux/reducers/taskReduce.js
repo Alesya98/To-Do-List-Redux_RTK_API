@@ -40,13 +40,11 @@ const taskReducer = (store = initialValue, action) => {
         ),
       };
 
-      case "clear" :
-        return {
-          ...store,
-          value: store.value.filter((item) => 
-           item.id !== action.payload
-          )
-        }
+    case "clear":
+      return {
+        ...store,
+        value: store.value.filter((item) => item.id !== action.payload),
+      };
 
     default:
       return store;
