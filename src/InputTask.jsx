@@ -1,12 +1,14 @@
 import { useState, memo } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { createAddTaskActions } from "./redux/actions/tasksActions";
 
-const InputTask = ({ setTask }) => {
-  // console.log("rerender InputTask");
-  const [text, setText] = useState("");
+const InputTask = () => {
+  const dispatch = useDispatch();
+  const { value } = useSelector((store) => store.text);
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
-    setText(e.target.value);
+    dispatch({ type: "change", payload: e.target.value });
   };
 
   const addNewTasks = async () => {
@@ -19,30 +21,25 @@ const InputTask = ({ setTask }) => {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ title: text }),
+          body: JSON.stringify({ title: value }),
         },
       );
 
       const data = await response.json();
-      // console.log(data)
-      setTask((tasks) => [...tasks, data]);
+      dispatch(createAddTaskActions(data));
     } catch (error) {
       console.log("Ошибка", error);
     }
   };
 
   const handleClick = () => {
-    if (text.trim() === "") {
+    if (value.trim() === "") {
       setError("Нельзя добавить пустую задачу");
       return;
     }
     setError("");
-    // setTask((tasks) => [
-    //   ...tasks,
-    //   { id: crypto.randomUUID(), title: text, isDone: false },
-    // ]);
     addNewTasks();
-    setText("");
+    dispatch({ type: "zero" });
   };
 
   return (
@@ -51,7 +48,7 @@ const InputTask = ({ setTask }) => {
         className="search"
         placeholder="Введите задачу"
         type="text"
-        value={text}
+        value={value}
         onChange={handleChange}
       />
       <button className="search-btn" onClick={handleClick}>
