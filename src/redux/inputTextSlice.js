@@ -12,9 +12,12 @@ const inputTextSlice = createSlice({
         zero(state) {
       state.value = ''
     },
-    
   },
+  selectors: {
+    selectorText: (sliceText) => sliceText.value
+  }
 })
 
 export const { cheng, zero} = inputTextSlice.actions
+export const{selectorText} = inputTextSlice.selectors
 export default inputTextSlice.reducer

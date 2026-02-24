@@ -1,37 +1,22 @@
 import { useState, memo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { cheng, zero } from "./redux/inputTextSlice";
-import { add } from "./redux/taskSlice";
+import { cheng, selectorText, zero } from "./redux/inputTextSlice";
+import { add} from "./redux/taskSlice";
 
 const InputTask = () => {
   const dispatch = useDispatch();
-  const { value } = useSelector((store) => store.text);
+  const value  = useSelector(selectorText);
   const [error, setError] = useState("");
+
+  console.log(value)
 
   const handleChange = (e) => {
     dispatch(cheng(e.target.value));
   };
 
-  const addNewTasks = async () => {
-    try {
-      const response = await fetch(
-        "https://todo-redev.herokuapp.com/api/todos",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ title: value }),
-        },
-      );
-
-      const data = await response.json();
-      dispatch(add(data));
-    } catch (error) {
-      console.log("Ошибка", error);
-    }
-  };
+  const addNewTasks = () => {
+    dispatch(add(value))
+  }
 
   const handleClick = () => {
     if (value.trim() === "") {

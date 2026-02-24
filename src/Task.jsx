@@ -19,79 +19,17 @@ const Task = ({ task }) => {
     }
   };
 
-  const deleteTask = async (id) => {
-    try {
-      const response = await fetch(
-        `https://todo-redev.herokuapp.com/api/todos/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            accept: "application/json",
-          },
-        },
-      );
-      // const data = response.json()
-      //   console.log(data)
-      if (response.ok) {
-        // console.log('ok')
-        dispatch(remove(id));
-      } else {
-        console.log("Ошибка");
-      }
-    } catch (error) {
-      console.log("Ошибка", error);
-    }
-  }; //храниться в store
+  const deleteTask = () => {
+    dispatch(remove(task.id))
+  }
 
-  const checkedTask = async (id, isCompleted) => {
-    try {
-      const response = await fetch(
-        `https://todo-redev.herokuapp.com/api/todos/${id}/isCompleted`,
-        {
-          method: "PATCH",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ isCompleted: !isCompleted }),
-        },
-      );
-      if (response.ok) {
-        dispatch(check(id));
-      } else {
-        console.log("Ошибка", response.statusText);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const checkedTask = () => {
+    dispatch(check(task.id))
+  }
 
-  const editTitle = async (id, newTitle) => {
-    try {
-      const response = await fetch(
-        `https://todo-redev.herokuapp.com/api/todos/${id}`,
-        {
-          method: "PATCH",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-            accept: "application/json",
-          },
-          body: JSON.stringify({ title: newTitle }),
-        },
-      );
-
-      if (response.ok) {
-        dispatch(edit({ id, editText }));
-      } else {
-        console.log("Ошибка при обновлении на сервере");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+  const editTitle = () => {
+    dispatch(edit({id: task.id, title: editText}));
+  }
   return (
     <div className="task">
       <input
