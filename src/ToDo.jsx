@@ -7,11 +7,12 @@ import ButtonComp from "./ButtonComp";
 import DeleteActiveTask from "./DeleteActiveTask";
 import { LogOut } from "./LogOut";
 import { useSelector, useDispatch } from "react-redux";
-import { displayTasksActions } from "./redux/actions/tasksActions";
+import { get } from "./redux/taskSlice";
 
 const ToDo = () => {
   const dispatch = useDispatch();
-  const { value } = useSelector((store) => store.tasks);
+  const {value} = useSelector((store) => store.tasks);
+  console.log(value)
 
   const getAllTasks = async () => {
     try {
@@ -27,7 +28,7 @@ const ToDo = () => {
       );
 
       const data = await response.json();
-      dispatch(displayTasksActions(data));
+      dispatch(get(data));
     } catch (error) {
       console.log("Ошибка", error);
     }

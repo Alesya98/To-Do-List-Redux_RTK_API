@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { filterTasksActions } from "./redux/actions/tasksActions";
+import { filter } from "./redux/filterSlice";
 
 const ButtonComp = () => {
   const dispatch = useDispatch();
@@ -10,19 +10,19 @@ const ButtonComp = () => {
     >
       <button
         className="search-btn"
-        onClick={() => dispatch(filterTasksActions("active"))}
+        onClick={() => dispatch(filter("active"))}
       >
         Активные
       </button>
       <button
         className="search-btn"
-        onClick={() => dispatch(filterTasksActions("done"))}
+        onClick={() => dispatch(filter("done"))}
       >
         Готовые
       </button>
       <button
         className="search-btn"
-        onClick={() => dispatch(filterTasksActions("all"))}
+        onClick={() => dispatch(filter("all"))}
       >
         Все
       </button>

@@ -1,19 +1,13 @@
 import { useState, memo } from "react";
 import { useDispatch } from "react-redux";
-import {
-  cheсkedTasksActions,
-  deleteTasksActions,
-  editTasksActions,
-} from "./redux/actions/tasksActions";
+import { check, edit, remove } from "./redux/taskSlice";
 
 const Task = ({ task }) => {
-  // console.log(task)
   const dispatch = useDispatch();
   const [isEdit, setIsEdit] = useState(false);
   const [editText, setEditText] = useState(task.title);
 
   const hendelSend = (e) => {
-    // console.log("кнопка нажата");
     if (e.key === "Enter") {
       if (editText.trim() === "") {
         setEditText(task.title);
@@ -40,7 +34,8 @@ const Task = ({ task }) => {
       // const data = response.json()
       //   console.log(data)
       if (response.ok) {
-        dispatch(deleteTasksActions(id));
+        // console.log('ok')
+        dispatch(remove(id));
       } else {
         console.log("Ошибка");
       }
@@ -63,7 +58,7 @@ const Task = ({ task }) => {
         },
       );
       if (response.ok) {
-        dispatch(cheсkedTasksActions(id));
+        dispatch(check(id));
       } else {
         console.log("Ошибка", response.statusText);
       }
@@ -88,7 +83,7 @@ const Task = ({ task }) => {
       );
 
       if (response.ok) {
-        dispatch(editTasksActions({ id, editText }));
+        dispatch(edit({ id, editText }));
       } else {
         console.log("Ошибка при обновлении на сервере");
       }

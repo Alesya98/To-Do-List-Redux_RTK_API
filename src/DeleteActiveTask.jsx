@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { clearActiveActions } from "./redux/actions/tasksActions";
+import { clear } from "./redux/taskSlice";
 
 const DeleteActiveTask = () => {
   const { value } = useSelector((store) => store.tasks);
@@ -22,7 +22,7 @@ const DeleteActiveTask = () => {
           },
         );
         if (response.ok) {
-          dispatch(clearActiveActions(task.id));
+          dispatch(clear(task.id));
         } else {
           console.log("Ошибка");
         }

@@ -1,6 +1,7 @@
 import { useState, memo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { createAddTaskActions } from "./redux/actions/tasksActions";
+import { cheng, zero } from "./redux/inputTextSlice";
+import { add } from "./redux/taskSlice";
 
 const InputTask = () => {
   const dispatch = useDispatch();
@@ -8,7 +9,7 @@ const InputTask = () => {
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
-    dispatch({ type: "change", payload: e.target.value });
+    dispatch(cheng(e.target.value));
   };
 
   const addNewTasks = async () => {
@@ -26,7 +27,7 @@ const InputTask = () => {
       );
 
       const data = await response.json();
-      dispatch(createAddTaskActions(data));
+      dispatch(add(data));
     } catch (error) {
       console.log("Ошибка", error);
     }
@@ -39,7 +40,7 @@ const InputTask = () => {
     }
     setError("");
     addNewTasks();
-    dispatch({ type: "zero" });
+    dispatch(zero());
   };
 
   return (

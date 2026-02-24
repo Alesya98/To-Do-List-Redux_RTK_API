@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 const ToDoList = () => {
   const { value } = useSelector((store) => store.tasks);
-  const { res } = useSelector((store) => store.filter);
+  const {res} = useSelector((store) => store.filter);
 
   const filteredTasks = value.filter((item) => {
     if (res === "active") return !item.isCompleted;
