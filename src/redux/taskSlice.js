@@ -1,17 +1,36 @@
-import { createSlice } from '@reduxjs/toolkit'
+import {createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
-const initialState = { value: [{
-  id: crypto.randomUUID(), title: 'React+Redux+RTK', isCompleted: false
-}]}
+export const getTasks = createAsyncThunk('tasks/get',async(state, thunkAPI) => {
+  try {
+    const store = thunkAPI.getState() //возвращает весь store
+    // console.log('store:', store)
+    const response = await fetch('https://todo-redev.herokuapp.com/api/todos?isCompleted=false', {
+      method: 'GET',
+      headers: {
+           "Content-Type": "application/json",
+            Authorization: `Bearer ${store.auth.token}`,
+      }
+    })
+
+    const data = await response.json()
+    console.log('ok')
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+const initialState = { value: []}
+// const initialState = { value: [], loading: false}
 
 const taskSlice = createSlice({
   name: 'tasks',
   initialState,
   reducers: {
     add(state, action) {
-      state.value.push({
-          id: crypto.randomUUID(), title: action.payload, isCompleted: false
-      })
+      state.value.push(action.payload) 
+      // const id = newTodo.id ?? Math.random().toString(36).slice(2)
+      // state.value.push({id, isCompleted: false, ...newTodo})
     },
     get(state, action) {
       state.value = action.payload
@@ -28,7 +47,6 @@ const taskSlice = createSlice({
             ? { ...item, title: action.payload.title }
             : item
         }
-          
         )
     },
     clear(state, action) {
@@ -38,6 +56,15 @@ const taskSlice = createSlice({
   selectors: {
     selectAllTasks: (sliceState) => sliceState.value
     
+  },
+  extraReducers: (builder) => {
+    // builder.addCase(getTasks.pending, (state, action) => {
+    //   state.loading = true
+    // })
+    builder.addCase(getTasks.fulfilled, (state, action) => {
+      state.value = action.payload
+      // state.loading = false
+    })
   }
 })
 
