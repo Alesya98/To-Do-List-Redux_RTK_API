@@ -1,6 +1,7 @@
 import { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { clear, selectAllTasks } from "./redux/taskSlice";
+import { selectAllTasks } from "./redux/taskSlice";
+import { clearTask } from "./api/taskAPI";
 
 const DeleteActiveTask = () => {
   const value = useSelector(selectAllTasks);
@@ -11,7 +12,7 @@ const DeleteActiveTask = () => {
 
   const clearActive = () => {
     for(const task of clearDone) {
-       dispatch(clear(task.id));
+       dispatch(clearTask(task.id));
     }
    
   }

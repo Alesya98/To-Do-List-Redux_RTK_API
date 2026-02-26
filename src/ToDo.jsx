@@ -6,7 +6,8 @@ import ToDoList from "./ToDoList";
 import ButtonComp from "./ButtonComp";
 import DeleteActiveTask from "./DeleteActiveTask";
 import { useSelector, useDispatch } from "react-redux";
-import { getTasks, selectAllTasks } from "./redux/taskSlice";
+import { selectAllTasks } from "./redux/taskSlice";
+import { getTasks } from "./api/taskAPI";
 
 const ToDo = () => {
   const dispatch = useDispatch();

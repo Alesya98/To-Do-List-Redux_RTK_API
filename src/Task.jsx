@@ -1,6 +1,6 @@
 import { useState, memo } from "react";
 import { useDispatch } from "react-redux";
-import { check, edit, remove } from "./redux/taskSlice";
+import {removeTask, checkTask, editTask} from './api/taskAPI'
 
 const Task = ({ task }) => {
   const dispatch = useDispatch();
@@ -20,15 +20,15 @@ const Task = ({ task }) => {
   };
 
   const deleteTask = () => {
-    dispatch(remove(task.id))
+    dispatch(removeTask(task.id))
   }
 
   const checkedTask = () => {
-    dispatch(check(task.id))
+    dispatch(checkTask({id: task.id, isCompleted: !task.isCompleted}))
   }
 
   const editTitle = () => {
-    dispatch(edit({id: task.id, title: editText}));
+    dispatch(editTask({id: task.id, newTitle: editText}));
   }
   return (
     <div className="task">

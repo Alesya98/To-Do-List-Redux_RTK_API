@@ -1,21 +1,20 @@
 import { useState, memo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { cheng, selectorText, zero } from "./redux/inputTextSlice";
-import { add} from "./redux/taskSlice";
+// import { add} from "./redux/taskSlice";
+import { addTasks } from "./api/taskAPI";
 
 const InputTask = () => {
   const dispatch = useDispatch();
   const value  = useSelector(selectorText);
   const [error, setError] = useState("");
 
-  console.log(value)
-
   const handleChange = (e) => {
     dispatch(cheng(e.target.value));
   };
 
   const addNewTasks = () => {
-    dispatch(add(value))
+    dispatch(addTasks(value))
   }
 
   const handleClick = () => {
