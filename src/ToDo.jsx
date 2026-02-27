@@ -13,15 +13,9 @@ const ToDo = () => {
   const dispatch = useDispatch();
   const value = useSelector(selectAllTasks);
 
-  // const getAllTasks = () => {
-  //   dispatch(get(value));
-  // }
-
   useEffect(() => {
-    dispatch(getTasks())
+    dispatch(getTasks());
   }, [dispatch]);
-
-  console.log('tasks from store: ', value)
 
   return (
     <>
@@ -29,7 +23,7 @@ const ToDo = () => {
       <InputTask />
       <ToDoList />
       <ButtonComp />
-      <DeleteActiveTask/>
+      <DeleteActiveTask />
     </>
   );
 };

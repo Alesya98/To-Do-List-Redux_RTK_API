@@ -6,10 +6,9 @@ import PrivateRouter from "./PrivateRoute";
 import ToDo from "./ToDo";
 
 function App() {
-
   return (
     <>
-     <Routes>
+      <Routes>
         <Route path="/registre" element={<Login />} />
         <Route path="/login" element={<SignIn />} />
         <Route path="/" element={<SignIn />} />

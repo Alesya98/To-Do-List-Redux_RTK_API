@@ -1,12 +1,11 @@
 import { useState, memo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { cheng, selectorText, zero } from "./redux/inputTextSlice";
-// import { add} from "./redux/taskSlice";
 import { addTasks } from "./api/taskAPI";
 
 const InputTask = () => {
   const dispatch = useDispatch();
-  const value  = useSelector(selectorText);
+  const value = useSelector(selectorText);
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
@@ -14,8 +13,8 @@ const InputTask = () => {
   };
 
   const addNewTasks = () => {
-    dispatch(addTasks(value))
-  }
+    dispatch(addTasks(value));
+  };
 
   const handleClick = () => {
     if (value.trim() === "") {

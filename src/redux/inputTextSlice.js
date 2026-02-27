@@ -1,23 +1,23 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { value: ''}
+const initialState = { value: "" };
 
 const inputTextSlice = createSlice({
-  name: 'text',
+  name: "text",
   initialState,
   reducers: {
     cheng(state, action) {
-      state.value = action.payload
+      state.value = action.payload;
     },
-        zero(state) {
-      state.value = ''
+    zero(state) {
+      state.value = "";
     },
   },
   selectors: {
-    selectorText: (sliceText) => sliceText.value
-  }
-})
+    selectorText: (sliceText) => sliceText.value,
+  },
+});
 
-export const { cheng, zero} = inputTextSlice.actions
-export const{selectorText} = inputTextSlice.selectors
-export default inputTextSlice.reducer
+export const { cheng, zero } = inputTextSlice.actions;
+export const { selectorText } = inputTextSlice.selectors;
+export default inputTextSlice.reducer;

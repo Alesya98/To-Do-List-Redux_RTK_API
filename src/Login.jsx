@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+const REGIS_URL = import.meta.env.VITE_REGIS_URL;
+
 const Login = () => {
   const navigate = useNavigate();
   const [data, setData] = useState({
@@ -24,44 +26,28 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(
-        "https://todo-redev.herokuapp.com/api/users/register",
-        {
-          method: "POST",
-          headers: {
-            accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
+      const response = await fetch(`${REGIS_URL}/users/register`, {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
         },
-      );
-      console.log(data);
+        body: JSON.stringify(data),
+      });
       const result = await response.json();
       if (response.ok) {
-        console.log("ok");
-         setData({
-        username: "",
-        email: "",
-        password: "",
-        gender: "",
-        age: "",
-      });  
-      navigate("/login");
-      } else {
+        setData({
+          username: "",
+          email: "",
+          password: "",
+          gender: "",
+          age: "",
+        });
+        navigate("/login");
+      } else if (result.errors) {
         const errorsMap = {};
-        result.errors?.forEach((error) => {  //? делает проверку есть ли в св-во errors в result
-          errorsMap[error.param] = error.msg
-          if (error.param === "username") {
-            errorsMap.username = error.msg;
-          } else if (error.param === "email") {
-            errorsMap.email = error.msg;
-          } else if (error.param === "password") {
-            errorsMap.password = error.msg;
-          } else if (error.param === "gender") {
-            errorsMap.gender = error.msg;
-          } else if (error.param === "age") {
-            errorsMap.age = error.msg;
-          }
+        result.errors.forEach(({ param, msg }) => {
+          errorsMap[param] = msg;
         });
         setFieldErrors(errorsMap);
       }

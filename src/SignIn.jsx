@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+const REGIS_URL = import.meta.env.VITE_REGIS_URL;
+
 const SignIn = () => {
   const navigate = useNavigate();
 
@@ -20,26 +22,20 @@ const SignIn = () => {
   const hendleAutorizete = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(
-        "https://todo-redev.herokuapp.com/api/auth/login",
-        {
-          method: "POST",
-          headers: {
-            accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(dataUp),
+      const response = await fetch(`${REGIS_URL}/auth/login`, {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify(dataUp),
+      });
 
-      const result = await response.json(); //хранится токен
-      // console.log(result)
+      const result = await response.json();
       if (response.ok) {
         localStorage.setItem("token", result.token);
-        //    console.log("Токен в хранилище:", localStorage.getItem('token'));
         navigate("/todo");
       } else {
-        console.log("Ошибка", result.message);
         navigate("/registre");
       }
     } catch (error) {

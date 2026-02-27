@@ -11,11 +11,10 @@ const DeleteActiveTask = () => {
   const clearDone = value.filter((item) => item.isCompleted);
 
   const clearActive = () => {
-    for(const task of clearDone) {
-       dispatch(clearTask(task.id));
+    for (const task of clearDone) {
+      dispatch(clearTask(task.id));
     }
-   
-  }
+  };
 
   return (
     <div>

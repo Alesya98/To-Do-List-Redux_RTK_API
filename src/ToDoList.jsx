@@ -2,12 +2,11 @@ import Task from "./Task";
 import { memo } from "react";
 import { useSelector } from "react-redux";
 import { selectAllTasks } from "./redux/taskSlice";
-import {selectFilter} from "./redux/filterSlice"
+import { selectFilter } from "./redux/filterSlice";
 
 const ToDoList = () => {
   const value = useSelector(selectAllTasks);
   const valueFilter = useSelector(selectFilter);
-  
 
   const filteredTasks = value.filter((item) => {
     if (valueFilter === "active") return !item.isCompleted;
