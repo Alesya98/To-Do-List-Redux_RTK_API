@@ -1,11 +1,11 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { configureStore} from "@reduxjs/toolkit";
 
 import inputTextSlice from "./inputTextSlice";
 import taskSlice from "./taskSlice";
 import filterSlice from "./filterSlice";
 
 const store = configureStore({
-  reducer: combineReducers({
+  reducer: ({
     text: inputTextSlice,
     tasks: taskSlice,
     filter: filterSlice,
